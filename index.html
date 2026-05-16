@@ -1,0 +1,205 @@
+<!-- ========================= -->
+<!-- ARCHIVO: index.html -->
+<!-- ========================= -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facu Photography</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="logo">FACU.</div>
+
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#sobre">Sobre mí</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="inicio" class="hero parallax">
+  <div class="overlay"></div>
+
+  <div class="hero-content">
+    <p class="subtitle">Fotografía Profesional</p>
+    <h1>Capturando momentos<br>con una mirada cinematográfica.</h1>
+
+    <a href="#portfolio" class="btn">Ver Portfolio</a>
+  </div>
+</section>
+
+<!-- SOBRE MI -->
+<section id="sobre" class="about fade-in">
+  <div class="about-text">
+    <p class="section-tag">Sobre mí</p>
+
+    <h2>Fotografía con emoción,<br>detalle y narrativa visual.</h2>
+
+    <p>
+      Soy fotógrafo especializado en retratos, eventos y fotografía urbana.
+      Mi objetivo es crear imágenes con identidad visual fuerte, composición
+      elegante y una estética cinematográfica.
+    </p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <h3>+350</h3>
+      <p>Sesiones</p>
+    </div>
+
+    <div class="stat">
+      <h3>7</h3>
+      <p>Años de experiencia</p>
+    </div>
+
+    <div class="stat">
+      <h3>+20</h3>
+      <p>Clientes recurrentes</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="portfolio">
+
+  <div class="section-title fade-in">
+    <p class="section-tag">Portfolio</p>
+    <h2>Galería Fotográfica</h2>
+  </div>
+
+  <!-- CATEGORIAS -->
+  <div class="categories fade-in">
+    <button class="active" data-filter="all">Todo</button>
+    <button data-filter="retratos">Retratos</button>
+    <button data-filter="eventos">Eventos</button>
+    <button data-filter="urbano">Urbano</button>
+    <button data-filter="naturaleza">Naturaleza</button>
+    <button data-filter="paisajes">Paisajes</button>
+    <button data-filter="byn">Blanco y Negro</button>
+  </div>
+
+  <!-- GALERIA -->
+  <div class="gallery">
+
+    <!-- RETRATOS -->
+    <div class="gallery-item retratos fade-in">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200" alt="">
+    </div>
+
+    <div class="gallery-item retratos fade-in">
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200" alt="">
+    </div>
+
+    <!-- EVENTOS -->
+    <div class="gallery-item eventos fade-in">
+      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200" alt="">
+    </div>
+
+    <div class="gallery-item eventos fade-in">
+      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200" alt="">
+    </div>
+
+    <!-- URBANO -->
+    <div class="gallery-item urbano fade-in">
+      <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1200" alt="">
+    </div>
+
+    <div class="gallery-item urbano fade-in">
+      <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1200" alt="">
+    </div>
+
+    <!-- NATURALEZA -->
+    <div class="gallery-item naturaleza fade-in">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200" alt="">
+    </div>
+
+    <div class="gallery-item naturaleza fade-in">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200" alt="">
+    </div>
+
+    <!-- PAISAJES -->
+    <div class="gallery-item paisajes fade-in">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200" alt="">
+    </div>
+
+    <div class="gallery-item paisajes fade-in">
+      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200" alt="">
+    </div>
+
+    <!-- BYN -->
+    <div class="gallery-item byn fade-in">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200" alt="">
+    </div>
+
+    <div class="gallery-item byn fade-in">
+      <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200" alt="">
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="services">
+
+  <div class="section-title fade-in">
+    <p class="section-tag">Servicios</p>
+    <h2>Sesiones Fotográficas</h2>
+  </div>
+
+  <div class="service-grid">
+
+    <div class="service-card fade-in">
+      <h3>Retratos</h3>
+      <p>Sesiones personales, editoriales y branding.</p>
+    </div>
+
+    <div class="service-card fade-in">
+      <h3>Eventos</h3>
+      <p>Cobertura profesional de eventos sociales.</p>
+    </div>
+
+    <div class="service-card fade-in">
+      <h3>Contenido para marcas</h3>
+      <p>Fotografía comercial y visual storytelling.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" class="contact fade-in">
+
+  <div class="section-title">
+    <p class="section-tag">Contacto</p>
+    <h2>Trabajemos juntos.</h2>
+  </div>
+
+  <div class="contact-links">
+    <a href="#">Instagram</a>
+    <a href="#">Behance</a>
+    <a href="#">Email</a>
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 FACU Photography</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
