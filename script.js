@@ -1,63 +1,253 @@
 // =========================
-// ARCHIVO: script.js
+// ARCHIVO: script.js (refactor para contenido dinámico)
 // =========================
 
-// FILTRO GALERIA
-const buttons = document.querySelectorAll(".categories button");
-const items = document.querySelectorAll(".gallery-item");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("visible");
+  });
+});
 
-buttons.forEach(button => {
+function observeFadeIns(root = document) {
+  root.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+}
 
-  button.addEventListener("click", () => {
+// Parallax suave para el hero (usa background-image definido desde JSON)
+function initParallax() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    hero.style.backgroundPositionY = -(scrolled * 0.2) + 'px';
+  });
+}
 
-    buttons.forEach(btn => btn.classList.remove("active"));
-    button.classList.add("active");
+// Render helpers
+function el(tag, attrs = {}, children = []) {
+  const e = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v]) => {
+    if (k === 'class') e.className = v;
+    else if (k.startsWith('data-')) e.setAttribute(k, v);
+    else if (k === 'html') e.innerHTML = v;
+    else e[k] = v;
+  });
+  (Array.isArray(children) ? children : [children]).forEach(c => {
+    if (!c && c !== 0) return;
+    e.append(typeof c === 'string' ? document.createTextNode(c) : c);
+  });
+  return e;
+}
 
-    const filter = button.dataset.filter;
+async function loadJSON(path){
+  try{
+    const res = await fetch(path);
+    return await res.json();
+  }catch(e){
+    console.warn('No se pudo cargar', path, e);
+    return null;
+  }
+}
 
-    items.forEach(item => {
+async function renderSection(name){
+  const container = document.querySelector(`[data-section="${name}"]`);
+  if(!container) return;
 
-      if(filter === "all"){
-        item.style.display = "block";
-      } else {
+  const data = await loadJSON(`sections/${name}.json`);
+  if(!data) return;
 
-        if(item.classList.contains(filter)){
-          item.style.display = "block";
-        } else {
-          item.style.display = "none";
-        }
+  // Hero
+  if(name === 'hero'){
+    if(data.background) container.style.backgroundImage = `url('${data.background}')`;
+    const content = container.querySelector('[data-content]');
+    content.innerHTML = `
+      <p class="subtitle">${data.subtitle || ''}</p>
+      <h1>${data.title || ''}</h1>
+      ${data.cta ? `<a href="${data.cta.href || '#'}" class="btn">${data.cta.label}</a>` : ''}
+    `;
+    return;
+  }
 
-      }
+  // About, Contact, Services (html content)
+  if(data.html){
+    const target = container.querySelector('[data-content]');
+    target.innerHTML = data.html;
+    observeFadeIns(target);
+    return;
+  }
 
+  // Portfolio
+  if(name === 'portfolio'){
+    // categories
+    const catsEl = container.querySelector('[data-categories]');
+    catsEl.innerHTML = '';
+    const allBtn = el('button', {'class':'active','data-filter':'all'}, 'Todo');
+    catsEl.appendChild(allBtn);
+    const categories = data.categories || [];
+    categories.forEach(cat => {
+      catsEl.appendChild(el('button', {'data-filter':cat.slug}, cat.label));
     });
 
+    // gallery
+    const gallery = container.querySelector('[data-content]');
+    gallery.innerHTML = '';
+    (data.items||[]).forEach(item => {
+      const div = el('div', {class: `gallery-item ${item.category} fade-in`});
+      const img = el('img', {src: item.src, alt: item.alt || ''});
+      div.appendChild(img);
+      gallery.appendChild(div);
+    });
+
+    // init filters
+    initFilters();
+    observeFadeIns(container);
+    return;
+  }
+
+}
+
+function initFilters(){
+  const buttons = document.querySelectorAll('.categories button');
+  const items = document.querySelectorAll('.gallery-item');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      const filter = button.dataset.filter;
+      items.forEach(item => {
+        if(filter === 'all' || item.classList.contains(filter)) item.style.display = 'block';
+        else item.style.display = 'none';
+      });
+    });
   });
+}
 
-});
+async function init(){
+  // render all sections we have JSON for
+  const sections = ['hero','about','portfolio','services','contact'];
+  await Promise.all(sections.map(s => renderSection(s)));
+  initParallax();
+  observeFadeIns();
+}
 
-// FADE IN
-const observer = new IntersectionObserver(entries => {
+init();
 
-  entries.forEach(entry => {
+// ------------------
+// Editor UI
+// ------------------
+const editorToggle = document.getElementById('editor-toggle');
+const editorPanel = document.getElementById('editor-panel');
+const editorClose = document.getElementById('editor-close');
+const editorLoad = document.getElementById('editor-load');
+const editorSave = document.getElementById('editor-save');
+const editorCopy = document.getElementById('editor-copy');
+const editorRefresh = document.getElementById('editor-refresh');
 
-    if(entry.isIntersecting){
-      entry.target.classList.add("visible");
-    }
+editorToggle.addEventListener('click', () => editorPanel.classList.toggle('hidden'));
+editorClose.addEventListener('click', () => editorPanel.classList.add('hidden'));
 
+document.querySelectorAll('.editor-tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.editor-tabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    document.querySelectorAll('[data-editor]').forEach(sec => sec.classList.add('hidden'));
+    document.querySelector(`[data-editor="${tab}"]`).classList.remove('hidden');
   });
-
 });
 
-document.querySelectorAll(".fade-in").forEach(el => {
-  observer.observe(el);
+async function loadEditorData(){
+  const sections = ['hero','about','portfolio','services','contact'];
+  const data = {};
+  for(const s of sections){
+    data[s] = await loadJSON(`sections/${s}.json`) || {};
+  }
+
+  // populate hero
+  if(data.hero){
+    document.getElementById('hero-title').value = data.hero.title || '';
+    document.getElementById('hero-subtitle').value = data.hero.subtitle || '';
+    document.getElementById('hero-background').value = data.hero.background || '';
+    document.getElementById('hero-cta-label').value = (data.hero.cta && data.hero.cta.label) || '';
+    document.getElementById('hero-cta-href').value = (data.hero.cta && data.hero.cta.href) || '';
+  }
+
+  if(data.about){
+    document.getElementById('about-html').value = data.about.html || '';
+  }
+
+  if(data.portfolio){
+    document.getElementById('portfolio-cats').value = JSON.stringify(data.portfolio.categories||[], null, 2);
+    document.getElementById('portfolio-items').value = JSON.stringify(data.portfolio.items||[], null, 2);
+  }
+
+  if(data.services){
+    document.getElementById('services-html').value = data.services.html || '';
+  }
+
+  if(data.contact){
+    document.getElementById('contact-html').value = data.contact.html || '';
+  }
+}
+
+editorLoad.addEventListener('click', async () => {
+  editorLoad.disabled = true;
+  await loadEditorData();
+  editorLoad.disabled = false;
 });
 
-// PARALLAX SUAVE
-window.addEventListener("scroll", () => {
+function downloadJSON(filename, obj){
+  const txt = JSON.stringify(obj, null, 2);
+  const blob = new Blob([txt], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
 
-  const scrolled = window.pageYOffset;
+editorSave.addEventListener('click', () => {
+  // determine active tab
+  const active = document.querySelector('.editor-tabs button.active').dataset.tab;
+  if(active === 'hero'){
+    const obj = {
+      title: document.getElementById('hero-title').value,
+      subtitle: document.getElementById('hero-subtitle').value,
+      background: document.getElementById('hero-background').value,
+      cta: { label: document.getElementById('hero-cta-label').value, href: document.getElementById('hero-cta-href').value }
+    };
+    downloadJSON('hero.json', obj);
+  } else if(active === 'about'){
+    const obj = { html: document.getElementById('about-html').value };
+    downloadJSON('about.json', obj);
+  } else if(active === 'portfolio'){
+    let cats = [];
+    let items = [];
+    try{ cats = JSON.parse(document.getElementById('portfolio-cats').value); }catch(e){ alert('JSON inválido en categorías'); return; }
+    try{ items = JSON.parse(document.getElementById('portfolio-items').value); }catch(e){ alert('JSON inválido en items'); return; }
+    const obj = { categories: cats, items: items };
+    downloadJSON('portfolio.json', obj);
+  } else if(active === 'services'){
+    const obj = { html: document.getElementById('services-html').value };
+    downloadJSON('services.json', obj);
+  } else if(active === 'contact'){
+    const obj = { html: document.getElementById('contact-html').value };
+    downloadJSON('contact.json', obj);
+  }
+});
 
-  document.querySelector(".hero").style.backgroundPositionY =
-    -(scrolled * 0.2) + "px";
+editorCopy.addEventListener('click', () => {
+  const active = document.querySelector('.editor-tabs button.active').dataset.tab;
+  let txt = '';
+  if(active === 'hero') txt = JSON.stringify({ title: document.getElementById('hero-title').value, subtitle: document.getElementById('hero-subtitle').value, background: document.getElementById('hero-background').value, cta:{label: document.getElementById('hero-cta-label').value, href: document.getElementById('hero-cta-href').value} }, null, 2);
+  if(active === 'about') txt = document.getElementById('about-html').value;
+  if(active === 'portfolio') txt = JSON.stringify({ categories: JSON.parse(document.getElementById('portfolio-cats').value||'[]'), items: JSON.parse(document.getElementById('portfolio-items').value||'[]') }, null, 2);
+  if(active === 'services') txt = document.getElementById('services-html').value;
+  if(active === 'contact') txt = document.getElementById('contact-html').value;
+  navigator.clipboard.writeText(txt).then(()=> alert('Copiado al portapapeles'))
+});
 
+editorRefresh.addEventListener('click', async () => {
+  await init();
+  alert('Vista actualizada');
 });

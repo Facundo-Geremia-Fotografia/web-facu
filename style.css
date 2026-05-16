@@ -282,3 +282,44 @@ footer{
   }
 
 }
+
+/* EDITOR UI */
+#editor-toggle{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:48px;
+  height:48px;
+  border-radius:8px;
+  background:#111;
+  color:white;
+  border:1px solid rgba(255,255,255,.08);
+  cursor:pointer;
+  z-index:2000;
+}
+
+#editor-panel{
+  position:fixed;
+  right:20px;
+  top:60px;
+  width:420px;
+  max-height:80vh;
+  background:#0b0b0b;
+  border:1px solid rgba(255,255,255,.06);
+  padding:12px;
+  overflow:auto;
+  z-index:2000;
+  box-shadow:0 10px 30px rgba(0,0,0,.6);
+}
+
+.hidden{display:none}
+
+.editor-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.editor-tabs{display:flex;gap:6px;margin-bottom:8px}
+.editor-tabs button{padding:6px 8px;background:#111;border:0;color:#ddd;cursor:pointer}
+.editor-tabs button.active{background:#fff;color:#000}
+.editor-body{margin-bottom:8px}
+.editor-section label{display:block;margin-top:8px;margin-bottom:4px;color:#cfcfcf}
+.editor-section input,.editor-section textarea{width:100%;padding:8px;background:#111;border:1px solid rgba(255,255,255,.04);color:#fff}
+.editor-actions{display:flex;gap:8px;flex-wrap:wrap}
+.editor-actions button{padding:8px 10px;background:#111;border:1px solid rgba(255,255,255,.06);color:#fff;cursor:pointer}

@@ -1,0 +1,24 @@
+{
+  "categories": [
+    { "slug": "retratos", "label": "Retratos" },
+    { "slug": "eventos", "label": "Eventos" },
+    { "slug": "urbano", "label": "Urbano" },
+    { "slug": "naturaleza", "label": "Naturaleza" },
+    { "slug": "paisajes", "label": "Paisajes" },
+    { "slug": "byn", "label": "Blanco y Negro" }
+  ],
+  "items": [
+    { "src": "images/retratos/retratos-1.svg", "alt": "Retrato 1", "category": "retratos" },
+    { "src": "images/retratos/retratos-2.svg", "alt": "Retrato 2", "category": "retratos" },
+    { "src": "images/eventos/eventos-1.svg", "alt": "Evento 1", "category": "eventos" },
+    { "src": "images/eventos/eventos-2.svg", "alt": "Evento 2", "category": "eventos" },
+    { "src": "images/urbano/urbano-1.svg", "alt": "Urbano 1", "category": "urbano" },
+    { "src": "images/urbano/urbano-2.svg", "alt": "Urbano 2", "category": "urbano" },
+    { "src": "images/naturaleza/naturaleza-1.svg", "alt": "Naturaleza 1", "category": "naturaleza" },
+    { "src": "images/naturaleza/naturaleza-2.svg", "alt": "Naturaleza 2", "category": "naturaleza" },
+    { "src": "images/paisajes/paisajes-1.svg", "alt": "Paisaje 1", "category": "paisajes" },
+    { "src": "images/paisajes/paisajes-2.svg", "alt": "Paisaje 2", "category": "paisajes" },
+    { "src": "images/byn/byn-1.svg", "alt": "Blanco y Negro 1", "category": "byn" },
+    { "src": "images/byn/byn-2.svg", "alt": "Blanco y Negro 2", "category": "byn" }
+  ]
+}
