@@ -94,8 +94,14 @@ async function renderSection(name){
     // gallery
     const gallery = container.querySelector('[data-content]');
     gallery.innerHTML = '';
+    const categoryMap = new Map((data.categories || []).map(cat => [cat.slug, cat.label]));
     (data.items||[]).forEach(item => {
-      const div = el('div', {class: `gallery-item ${item.category} fade-in`});
+      const categoryLabel = categoryMap.get(item.category) || item.category || '';
+      const div = el('div', {
+        class: `gallery-item ${item.category} fade-in`,
+        'data-category': item.category || '',
+        'data-category-label': categoryLabel
+      });
       const img = el('img', {src: item.src, alt: item.alt || ''});
       div.appendChild(img);
       gallery.appendChild(div);
@@ -124,17 +130,6 @@ function initFilters(){
       });
     });
   });
-}
-
-function openLightbox(src, alt){
-  const lightbox = document.getElementById('lightbox');
-  const img = lightbox.querySelector('[data-lightbox-img]');
-  const caption = lightbox.querySelector('[data-lightbox-caption]');
-  img.src = src;
-  img.alt = alt;
-  caption.textContent = alt || '';
-  lightbox.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox(){
@@ -166,18 +161,28 @@ function initLightbox(){
   if(!gallery || !lightbox) return;
 
   const updateItems = () => {
-    lightboxItems = Array.from(gallery.querySelectorAll('.gallery-item img')).map(img => ({src: img.src, alt: img.alt || 'Imagen del portfolio'}));
+    lightboxItems = Array.from(gallery.querySelectorAll('.gallery-item')).map(item => {
+      const img = item.querySelector('img');
+      return {
+        src: img.src,
+        alt: img.alt || 'Imagen del portfolio',
+        category: item.dataset.category || '',
+        categoryLabel: item.dataset.categoryLabel || ''
+      };
+    });
   };
 
   updateItems();
+
+  const categoryButton = lightbox.querySelector('[data-lightbox-category]');
 
   gallery.addEventListener('click', event => {
     const image = event.target.closest('.gallery-item img');
     if(!image) return;
     event.preventDefault();
-    lightboxIndex = lightboxItems.findIndex(item => item.src === image.src);
+    lightboxIndex = Array.from(gallery.querySelectorAll('.gallery-item img')).findIndex(item => item.src === image.src);
     if(lightboxIndex === -1) lightboxIndex = 0;
-    openLightbox(image.src, image.alt || 'Imagen del portfolio');
+    showLightboxItem(lightboxIndex);
   });
 
   const prev = lightbox.querySelector('[data-lightbox-prev]');
@@ -194,15 +199,50 @@ function initLightbox(){
     showNextImage();
   });
 
+  if(categoryButton){
+    categoryButton.addEventListener('click', event => {
+      event.stopPropagation();
+      const current = lightboxItems[lightboxIndex];
+      if(!current || !current.category) return;
+      closeLightbox();
+      const filterBtn = document.querySelector(`.categories button[data-filter="${current.category}"]`);
+      if(filterBtn){
+        filterBtn.click();
+      }
+      document.getElementById('portfolio').scrollIntoView({behavior:'smooth'});
+    });
+  }
+
   img.addEventListener('click', closeLightbox);
 
   lightbox.addEventListener('click', event => {
-    if(event.target === lightbox){
+    if(event.target === lightbox || event.target.closest('[data-lightbox-close]')){
       closeLightbox();
     }
   });
 
   lightboxInitialized = true;
+}
+
+function openLightbox(src, alt){
+  const lightbox = document.getElementById('lightbox');
+  const img = lightbox.querySelector('[data-lightbox-img]');
+  const caption = lightbox.querySelector('[data-lightbox-caption]');
+  const categoryButton = lightbox.querySelector('[data-lightbox-category]');
+  const current = lightboxItems[lightboxIndex] || {};
+  img.src = src;
+  img.alt = alt;
+  caption.textContent = alt || '';
+  if(categoryButton){
+    if(current.category && current.categoryLabel){
+      categoryButton.textContent = `Más fotos ${current.categoryLabel}`;
+      categoryButton.classList.remove('hidden');
+    } else {
+      categoryButton.classList.add('hidden');
+    }
+  }
+  lightbox.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
 }
 
 async function init(){
