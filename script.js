@@ -8,6 +8,10 @@ const observer = new IntersectionObserver(entries => {
   });
 });
 
+let lightboxItems = [];
+let lightboxIndex = -1;
+let lightboxInitialized = false;
+
 function observeFadeIns(root = document) {
   root.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
 }
@@ -122,11 +126,91 @@ function initFilters(){
   });
 }
 
+function openLightbox(src, alt){
+  const lightbox = document.getElementById('lightbox');
+  const img = lightbox.querySelector('[data-lightbox-img]');
+  const caption = lightbox.querySelector('[data-lightbox-caption]');
+  img.src = src;
+  img.alt = alt;
+  caption.textContent = alt || '';
+  lightbox.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(){
+  const lightbox = document.getElementById('lightbox');
+  if(!lightbox) return;
+  lightbox.classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function showLightboxItem(index){
+  if(!lightboxItems.length) return;
+  lightboxIndex = ((index % lightboxItems.length) + lightboxItems.length) % lightboxItems.length;
+  const item = lightboxItems[lightboxIndex];
+  openLightbox(item.src, item.alt);
+}
+
+function showPreviousImage(){
+  showLightboxItem(lightboxIndex - 1);
+}
+
+function showNextImage(){
+  showLightboxItem(lightboxIndex + 1);
+}
+
+function initLightbox(){
+  if(lightboxInitialized) return;
+  const gallery = document.querySelector('.gallery');
+  const lightbox = document.getElementById('lightbox');
+  if(!gallery || !lightbox) return;
+
+  const updateItems = () => {
+    lightboxItems = Array.from(gallery.querySelectorAll('.gallery-item img')).map(img => ({src: img.src, alt: img.alt || 'Imagen del portfolio'}));
+  };
+
+  updateItems();
+
+  gallery.addEventListener('click', event => {
+    const image = event.target.closest('.gallery-item img');
+    if(!image) return;
+    event.preventDefault();
+    lightboxIndex = lightboxItems.findIndex(item => item.src === image.src);
+    if(lightboxIndex === -1) lightboxIndex = 0;
+    openLightbox(image.src, image.alt || 'Imagen del portfolio');
+  });
+
+  const prev = lightbox.querySelector('[data-lightbox-prev]');
+  const next = lightbox.querySelector('[data-lightbox-next]');
+  const img = lightbox.querySelector('[data-lightbox-img]');
+
+  prev.addEventListener('click', event => {
+    event.stopPropagation();
+    showPreviousImage();
+  });
+
+  next.addEventListener('click', event => {
+    event.stopPropagation();
+    showNextImage();
+  });
+
+  img.addEventListener('click', closeLightbox);
+
+  lightbox.addEventListener('click', event => {
+    if(event.target === lightbox){
+      closeLightbox();
+    }
+  });
+
+  lightboxInitialized = true;
+}
+
 async function init(){
   // render all sections we have JSON for
   const sections = ['hero','about','portfolio','services','contact'];
   await Promise.all(sections.map(s => renderSection(s)));
   initParallax();
+  initLightbox();
   observeFadeIns();
 }
 

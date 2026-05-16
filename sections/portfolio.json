@@ -18,6 +18,7 @@
     { "src": "images/naturaleza/naturaleza-2.svg", "alt": "Naturaleza 2", "category": "naturaleza" },
     { "src": "images/paisajes/paisajes-1.svg", "alt": "Paisaje 1", "category": "paisajes" },
     { "src": "images/paisajes/paisajes-2.svg", "alt": "Paisaje 2", "category": "paisajes" },
+    { "src": "images/byn/byn-0.jpg", "alt": "Velero", "category": "byn" },
     { "src": "images/byn/byn-1.svg", "alt": "Blanco y Negro 1", "category": "byn" },
     { "src": "images/byn/byn-2.svg", "alt": "Blanco y Negro 2", "category": "byn" }
   ]
