@@ -30,51 +30,18 @@
 </header>
 
 <!-- HERO -->
-<section id="inicio" class="hero parallax">
+<section id="inicio" class="hero parallax" data-section="hero">
   <div class="overlay"></div>
-
-  <div class="hero-content">
-    <p class="subtitle">Fotografía Profesional</p>
-    <h1>Capturando momentos<br>con una mirada cinematográfica.</h1>
-
-    <a href="#portfolio" class="btn">Ver Portfolio</a>
-  </div>
+  <div class="hero-content" data-content></div>
 </section>
 
 <!-- SOBRE MI -->
-<section id="sobre" class="about fade-in">
-  <div class="about-text">
-    <p class="section-tag">Sobre mí</p>
-
-    <h2>Fotografía con emoción,<br>detalle y narrativa visual.</h2>
-
-    <p>
-      Soy fotógrafo especializado en retratos, eventos y fotografía urbana.
-      Mi objetivo es crear imágenes con identidad visual fuerte, composición
-      elegante y una estética cinematográfica.
-    </p>
-  </div>
-
-  <div class="stats">
-    <div class="stat">
-      <h3>+350</h3>
-      <p>Sesiones</p>
-    </div>
-
-    <div class="stat">
-      <h3>7</h3>
-      <p>Años de experiencia</p>
-    </div>
-
-    <div class="stat">
-      <h3>+20</h3>
-      <p>Clientes recurrentes</p>
-    </div>
-  </div>
+<section id="sobre" class="about fade-in" data-section="about">
+  <div class="about-text" data-content></div>
 </section>
 
 <!-- PORTFOLIO -->
-<section id="portfolio" class="portfolio">
+<section id="portfolio" class="portfolio" data-section="portfolio">
 
   <div class="section-title fade-in">
     <p class="section-tag">Portfolio</p>
@@ -82,117 +49,36 @@
   </div>
 
   <!-- CATEGORIAS -->
-  <div class="categories fade-in">
-    <button class="active" data-filter="all">Todo</button>
-    <button data-filter="retratos">Retratos</button>
-    <button data-filter="eventos">Eventos</button>
-    <button data-filter="urbano">Urbano</button>
-    <button data-filter="naturaleza">Naturaleza</button>
-    <button data-filter="paisajes">Paisajes</button>
-    <button data-filter="byn">Blanco y Negro</button>
-  </div>
+  <div class="categories fade-in" data-categories></div>
 
   <!-- GALERIA -->
-  <div class="gallery">
+  <div class="gallery" data-content></div>
 
-    <!-- RETRATOS -->
-    <div class="gallery-item retratos fade-in">
-      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200" alt="">
-    </div>
-
-    <div class="gallery-item retratos fade-in">
-      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200" alt="">
-    </div>
-
-    <!-- EVENTOS -->
-    <div class="gallery-item eventos fade-in">
-      <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=1200" alt="">
-    </div>
-
-    <div class="gallery-item eventos fade-in">
-      <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200" alt="">
-    </div>
-
-    <!-- URBANO -->
-    <div class="gallery-item urbano fade-in">
-      <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1200" alt="">
-    </div>
-
-    <div class="gallery-item urbano fade-in">
-      <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?q=80&w=1200" alt="">
-    </div>
-
-    <!-- NATURALEZA -->
-    <div class="gallery-item naturaleza fade-in">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200" alt="">
-    </div>
-
-    <div class="gallery-item naturaleza fade-in">
-      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1200" alt="">
-    </div>
-
-    <!-- PAISAJES -->
-    <div class="gallery-item paisajes fade-in">
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200" alt="">
-    </div>
-
-    <div class="gallery-item paisajes fade-in">
-      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200" alt="">
-    </div>
-
-    <!-- BYN -->
-    <div class="gallery-item byn fade-in">
-      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200" alt="">
-    </div>
-
-    <div class="gallery-item byn fade-in">
-      <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200" alt="">
-    </div>
-
-  </div>
 </section>
 
+<div id="lightbox" class="lightbox hidden">
+  <div class="lightbox-backdrop" data-lightbox-close></div>
+  <div class="lightbox-content">
+    <button class="lightbox-nav lightbox-prev" data-lightbox-prev>&larr;</button>
+    <button class="lightbox-category hidden" data-lightbox-category></button>
+    <img src="" alt="" data-lightbox-img>
+    <button class="lightbox-nav lightbox-next" data-lightbox-next>&rarr;</button>
+    <p class="lightbox-caption" data-lightbox-caption></p>
+  </div>
+</div>
+
 <!-- SERVICIOS -->
-<section id="servicios" class="services">
-
-  <div class="section-title fade-in">
-    <p class="section-tag">Servicios</p>
-    <h2>Sesiones Fotográficas</h2>
-  </div>
-
-  <div class="service-grid">
-
-    <div class="service-card fade-in">
-      <h3>Retratos</h3>
-      <p>Sesiones personales, editoriales y branding.</p>
-    </div>
-
-    <div class="service-card fade-in">
-      <h3>Eventos</h3>
-      <p>Cobertura profesional de eventos sociales.</p>
-    </div>
-
-    <div class="service-card fade-in">
-      <h3>Contenido para marcas</h3>
-      <p>Fotografía comercial y visual storytelling.</p>
-    </div>
-
-  </div>
+<section id="servicios" class="services" data-section="services">
+  <div class="service-grid" data-content></div>
 </section>
 
 <!-- CONTACTO -->
-<section id="contacto" class="contact fade-in">
-
+<section id="contacto" class="contact fade-in" data-section="contact">
   <div class="section-title">
     <p class="section-tag">Contacto</p>
     <h2>Trabajemos juntos.</h2>
   </div>
-
-  <div class="contact-links">
-    <a href="#">Instagram</a>
-    <a href="#">Behance</a>
-    <a href="#">Email</a>
-  </div>
+  <div class="contact-links" data-content></div>
 
 </section>
 
@@ -200,6 +86,67 @@
   <p>© 2026 FACU Photography</p>
 </footer>
 
+<!-- EDITOR UI -->
+<button id="editor-toggle" title="Editor">⚙</button>
+<div id="editor-panel" class="hidden">
+  <div class="editor-header">
+    <strong>Editor de Secciones</strong>
+    <button id="editor-close">Cerrar</button>
+  </div>
+
+  <div class="editor-tabs">
+    <button data-tab="hero" class="active">Hero</button>
+    <button data-tab="about">Sobre</button>
+    <button data-tab="portfolio">Portfolio</button>
+    <button data-tab="services">Servicios</button>
+    <button data-tab="contact">Contacto</button>
+  </div>
+
+  <div class="editor-body">
+    <div data-editor="hero" class="editor-section">
+      <label>Título (HTML allowed):</label>
+      <textarea id="hero-title" rows="3"></textarea>
+      <label>Subtítulo:</label>
+      <input id="hero-subtitle" type="text">
+      <label>Fondo (URL):</label>
+      <input id="hero-background" type="text">
+      <label>CTA label:</label>
+      <input id="hero-cta-label" type="text">
+      <label>CTA href:</label>
+      <input id="hero-cta-href" type="text">
+    </div>
+
+    <div data-editor="about" class="editor-section hidden">
+      <label>HTML Sobre mí:</label>
+      <textarea id="about-html" rows="8"></textarea>
+    </div>
+
+    <div data-editor="portfolio" class="editor-section hidden">
+      <label>Categorías (JSON array of {"slug","label"}):</label>
+      <textarea id="portfolio-cats" rows="4"></textarea>
+      <label>Items (JSON array of {"src","alt","category"}):</label>
+      <textarea id="portfolio-items" rows="8"></textarea>
+      <small>Para añadir imagen local: sube el archivo manualmente a `images/` y pega la ruta aquí.</small>
+    </div>
+
+    <div data-editor="services" class="editor-section hidden">
+      <label>HTML Servicios:</label>
+      <textarea id="services-html" rows="6"></textarea>
+    </div>
+
+    <div data-editor="contact" class="editor-section hidden">
+      <label>HTML Contacto:</label>
+      <textarea id="contact-html" rows="4"></textarea>
+    </div>
+  </div>
+
+  <div class="editor-actions">
+    <button id="editor-load">Cargar</button>
+    <button id="editor-save">Exportar JSON</button>
+    <button id="editor-copy">Copiar JSON</button>
+    <button id="editor-refresh">Refrescar vista</button>
+  </div>
+</div>
 <script src="script.js"></script>
 </body>
 </html>

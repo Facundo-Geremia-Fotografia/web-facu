@@ -1,0 +1,4 @@
+# Ignorar la herramienta de administración local
+/admin/
+node_modules/
+.env
