@@ -1,9 +1,41 @@
-el sector de la esquina superior izquierda donde dice FACU, Cambiar a Facundo Chamorro 
-Vamos a cambiar la volanta por el texto "PORFOLIO VISUAL"
-El tetulo "Capturando momentos con una mirada cinematográfica" lo vamos a cambiar por "Fotografía versátil: donde la técnica y el concepto se encuentran con el arte y la pasión">
-Sector Sobre mirad cambios 
-TITULO:La unión entre técnica, formación y visión artística.
-Cuerpo: Soy Facundo Chamorro, fotógrafo y editor digital. Lo que empezó como una fascinación en mi infancia se consolidó en 2022. Desde entonces, me formé en talleres de toma y edición avanzada, y actualmente curso la Tecnicatura Superior en IMDAFTA. Mi trabajo equilibra lo comercial y lo artístico, una búsqueda que me llevó a ser seleccionado en el Concurso Pedro Otero, exhibiendo actualmente mi obra en Plaza Ucrania.
-Colocar justo a la derecha del dector sobre mi la fotografia mia al lado de la totografia expuesta en la plaza 
-d:\009 AUTORETRATOS\PSX_20250711_171340.jpg
-lAS ESTADISTICAS LAS SACAMOS MOMENTANIAMENTE.
+
+Estructura de cambios para la pagina web:
+
+1 Encabezado inicio: En la esquina superior izquierda: cambiar el texto actual "facu" por "Facundo Chamorro"
+.En la seccion donde dice "fotografia profecional" Cambiarlo por "porfolio visual"
+.Titulo principal:Cambiar el actual ("Capturando momentos con una mirada cinematográfica") 
+Por "Fotografía versátil: donde la técnica y el concepto se encuentran con el arte y la pasión"
+
+2. Seccion sobre mi: 
+.Título: La unión entre técnica, formación y visión artística.
+. Texto Soy Facundo Chamorro, fotógrafo y editor digital. Lo que empezó como una fascinación en mi infancia se consolidó en 2022. Desde entonces, me formé en talleres de toma y edición avanzada,
+ y actualmente curso la Tecnicatura Superior en IMDAFTA. Mi trabajo equilibra lo comercial y lo artístico, una búsqueda que me llevó a ser seleccionado en el Concurso Pedro Otero, exhibiendo actualmente mi obra en Plaza Ucrania
+. Imágenes: Colocar justo a la derecha de este texto la fotografía personal junto a la fotografía expuesta en la plaza
+
+3. Sección "Estadísticas"
+Acción: Ocultar o eliminar esta sección momentáneamente.
+
+4. Sección "Contacto"
+
+Eliminar: Enlace a Behance.
+
+Agregar / Actualizar:
+
+Instagram: Facundo.Geremia
+
+Email: Facundogeremiafotografia@gmail.com
+
+Ubicación: CABA, Buenos Aires, Argentina.
+
+Nueva Sección: El Arte de la Edición (Proceso Creativo)
+Esta sección debería ubicarse, idealmente, después de tu portfolio de trabajos terminados y antes de la sección de "Contacto".
+1. Textos para la Sección
+Título Principal de la Sección: Detrás de la Mirada: Técnica y Postproducción
+Texto Introductorio
+La captura es solo el primer paso. En esta sección, te invito a explorar la transformación de cada imagen. A través de un minucioso proceso de revelado digital, retoque y color grading, busco potenciar la narrativa y el concepto de cada obra, convirtiendo un momento crudo en una pieza artística final."
+
+2. Opciones de Diseño para las Comparativas
+Estructura Conceptual del Diseño
+Cada elemento de edición se compone de un bloque contenedor independiente que cambia su orientación según la pantalla:
+En Escritorio (Desktop): Las dos imágenes (Antes y Después) se muestran completas, una al lado de la otra, ocupando el 50% del ancho del contenedor cada una.
+En Dispositivos Móviles: Las imágenes se apilan automáticamente de forma vertical (una abajo de la otra), ocupando el 100% del ancho de la pantalla.
