@@ -102,8 +102,24 @@ async function renderSection(name){
         'data-category': item.category || '',
         'data-category-label': categoryLabel
       });
-      const img = el('img', {src: item.src, alt: item.alt || ''});
-      div.appendChild(img);
+
+      if(item.src_before){
+        const compare = el('div', {class: 'comparative'}, [
+          el('div', {class: 'compare-card'}, [
+            el('p', {class: 'compare-label'}, 'Antes'),
+            el('img', {src: item.src_before, alt: item.alt ? `${item.alt} antes` : 'Antes'})
+          ]),
+          el('div', {class: 'compare-card'}, [
+            el('p', {class: 'compare-label'}, 'Después'),
+            el('img', {src: item.src, alt: item.alt ? `${item.alt} después` : 'Después'})
+          ])
+        ]);
+        div.appendChild(compare);
+      } else {
+        const img = el('img', {src: item.src, alt: item.alt || ''});
+        div.appendChild(img);
+      }
+
       gallery.appendChild(div);
     });
 
@@ -161,13 +177,13 @@ function initLightbox(){
   if(!gallery || !lightbox) return;
 
   const updateItems = () => {
-    lightboxItems = Array.from(gallery.querySelectorAll('.gallery-item')).map(item => {
-      const img = item.querySelector('img');
+    lightboxItems = Array.from(gallery.querySelectorAll('.gallery-item img')).map(img => {
+      const item = img.closest('.gallery-item');
       return {
         src: img.src,
         alt: img.alt || 'Imagen del portfolio',
-        category: item.dataset.category || '',
-        categoryLabel: item.dataset.categoryLabel || ''
+        category: item ? item.dataset.category || '' : '',
+        categoryLabel: item ? item.dataset.categoryLabel || '' : ''
       };
     });
   };
